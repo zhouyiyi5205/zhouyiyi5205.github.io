@@ -155,6 +155,129 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-经典面试题-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/01/经典面试题-1/">经典面试题</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/01/经典面试题-1/" class="archive-article-date">
+  	<time datetime="2017-07-01T13:58:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="HTML部分面试题"><a href="#HTML部分面试题" class="headerlink" title="HTML部分面试题"></a>HTML部分面试题</h1><h4 id="1-你做的页面在那些浏览器测试过，这些浏览器内核分别是什么"><a href="#1-你做的页面在那些浏览器测试过，这些浏览器内核分别是什么" class="headerlink" title="1.你做的页面在那些浏览器测试过，这些浏览器内核分别是什么"></a>1.你做的页面在那些浏览器测试过，这些浏览器内核分别是什么</h4><table>
+<thead>
+<tr>
+<th>浏览器</th>
+<th style="text-align:center">内核</th>
+<th style="text-align:center">介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IE浏览器</td>
+<td style="text-align:center">trident内核</td>
+<td style="text-align:center">腾讯,猎豹,360</td>
+</tr>
+<tr>
+<td>Firefox</td>
+<td style="text-align:center">gecko内核</td>
+<td style="text-align:center">跨平台内核，window，Linux mac os</td>
+</tr>
+<tr>
+<td>Chrome</td>
+<td style="text-align:center">Blink内核</td>
+<td style="text-align:center">基于webit,goole,OpenSoftware共同开发</td>
+</tr>
+<tr>
+<td>Safari</td>
+<td style="text-align:center">webkit</td>
+<td style="text-align:center">安卓默认浏览器是webkit</td>
+</tr>
+<tr>
+<td>Opera</td>
+<td style="text-align:center">goole Chrome的Blink内核</td>
+<td style="text-align:center">…</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2-每一个HTML文件里面开头都一个很重要的Doctype，是做什么用的？"><a href="#2-每一个HTML文件里面开头都一个很重要的Doctype，是做什么用的？" class="headerlink" title="2.每一个HTML文件里面开头都一个很重要的Doctype，是做什么用的？"></a>2.每一个HTML文件里面开头都一个很重要的Doctype，是做什么用的？</h4><p><code>&lt;!Doctype&gt;声明</code><br>DOCTYPE,简称DTDs,是文档类型，是一种标准通用标记语言的文档类型说明，目的是告诉浏览器用那种语言类型来解析页面。<br>没有定义doctype会开启怪异蘑菇石，怪异模式下，很多CSS效果都会受到影响。</p>
+<h4 id="现在有用在web浏览器中的布局引擎有三种模式："><a href="#现在有用在web浏览器中的布局引擎有三种模式：" class="headerlink" title="现在有用在web浏览器中的布局引擎有三种模式："></a>现在有用在web浏览器中的布局引擎有三种模式：</h4><ol>
+<li>quirks mode:怪异模式</li>
+<li>almost standards mode:标准准模式(只有极少数的怪异行为执行)</li>
+<li>full standards mode:完整标准模式<br>*区分严格模式与混杂模式的意义在于DOCTYPE不存在或者格式不正确会导致以混杂模式呈现。<h4 id="3-Quirks-模式是什么？他和Standards模式有什么区别"><a href="#3-Quirks-模式是什么？他和Standards模式有什么区别" class="headerlink" title="3.Quirks 模式是什么？他和Standards模式有什么区别"></a>3.Quirks 模式是什么？他和Standards模式有什么区别</h4></li>
+</ol>
+<ul>
+<li>如果有DTD，那就是标准模式，如果没有DTD，那就是原来的旧模式进行渲染，这种兼容，就是怪异模式</li>
+<li>标准模式是指，浏览器按照W3C标准解析执行代码的;怪异模式则是用浏览器自己的方式解析代码的，具体的和网页中的DTD声明有关。DTD声明定义了标准文档的类型，会使浏览器使用响应的方式加载网页并显示，忽略DTD声明，网页进入怪异模式。<h4 id="4-前端角度出发做好SEO需要考虑什么"><a href="#4-前端角度出发做好SEO需要考虑什么" class="headerlink" title="4.前端角度出发做好SEO需要考虑什么"></a>4.前端角度出发做好SEO需要考虑什么</h4><code>Meta标签优化</code><br>主要包括主题title,网站模式DEscription,关键词keywords 还有作者Author，目录category,语言Language等<br><code>放置关键词</code><br>首先给网站确定关键词(一般在5个上下),然后针对这些关键词进行优化，包括关键词密度，相似度，突出性等<br><code>付费的搜索引擎</code> <code>搜索引擎登录</code> <code>链接交换和链接广泛度</code> <code>合理的标签使用</code><h4 id="5-对WEB标准以及W3C的理解与认识"><a href="#5-对WEB标准以及W3C的理解与认识" class="headerlink" title="5.对WEB标准以及W3C的理解与认识"></a>5.对WEB标准以及W3C的理解与认识</h4></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">面试题</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/javascript/" class="article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/web/" class="article-tag-list-link color4">web</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/01/经典面试题-1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-今天七月一日" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -427,6 +550,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
               </li>
             
             <div class="clearfix"></div>
