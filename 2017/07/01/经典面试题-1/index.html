@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/01/经典面试题-1/index.html">
 <meta property="og:site_name" content="ZYJ">
 <meta property="og:description" content="HTML部分面试题1.你做的页面在那些浏览器测试过，这些浏览器内核分别是什么   浏览器 内核 介绍     IE浏览器 trident内核 腾讯,猎豹,360   Firefox gecko内核 跨平台内核，window，Linux mac os   Chrome Blink内核 基于webit,goole,OpenSoftware共同开发   Safari webkit 安卓默认浏览器是web">
-<meta property="og:updated_time" content="2017-07-01T15:19:16.804Z">
+<meta property="og:updated_time" content="2017-07-06T06:20:48.065Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="经典面试题">
 <meta name="twitter:description" content="HTML部分面试题1.你做的页面在那些浏览器测试过，这些浏览器内核分别是什么   浏览器 内核 介绍     IE浏览器 trident内核 腾讯,猎豹,360   Firefox gecko内核 跨平台内核，window，Linux mac os   Chrome Blink内核 基于webit,goole,OpenSoftware共同开发   Safari webkit 安卓默认浏览器是web">
@@ -257,7 +257,29 @@
 <li>浏览器缓存(存储最近访问过的也米昂，再次请求时，从本地磁盘显示文档来加速页面的阅览，节约网络的资源加速浏览)</li>
 <li>服务器缓存(将需要频繁访问的网路内容存放在离用户较劲，访问速度更快的系统总，来提供访问速度)</li>
 </ul>
-<h4 id="10"><a href="#10" class="headerlink" title="10"></a>10</h4>
+<h4 id="10大量图片加载很慢，有哪些方法游湖，这些图片的加载，给用户更好的体验"><a href="#10大量图片加载很慢，有哪些方法游湖，这些图片的加载，给用户更好的体验" class="headerlink" title="10大量图片加载很慢，有哪些方法游湖，这些图片的加载，给用户更好的体验"></a>10大量图片加载很慢，有哪些方法游湖，这些图片的加载，给用户更好的体验</h4><ol>
+<li>图片懒加载，在页面上的未可视区域可以添加一个滚动条事件，判断图片位置与浏览器顶端的距离，吐过前者小于后者，优先加载.</li>
+<li>图片预加载，如幻灯片、相册等，可以使用图片预加载技术，将当前展示图片的<br>前一张和后一张优先下载。</li>
+<li>如果图片为css图片，可以使用csssprite精灵图，SVG矢量图，iconfont字体图标，Base64 等技术。</li>
+<li>缩略图，如果图片过大，可以使用特殊编码的图片，加载时会优先加载一张压缩的特别厉害的缩略图，以提供用户体验。</li>
+</ol>
+<h4 id="11-网页制作会用到的图片格式有哪些？"><a href="#11-网页制作会用到的图片格式有哪些？" class="headerlink" title="11.网页制作会用到的图片格式有哪些？"></a>11.网页制作会用到的图片格式有哪些？</h4><ol>
+<li>PSD格式，非压缩的原始文件保存格式，常用于保留原始信息，文件较大，不便于传输，一般用作备份。</li>
+<li>GIF图片格式，256种颜色，无损压缩，支持透明度。</li>
+<li>PNG图片格式，PNG-8，PNG-24,旧的浏览器和程序可能不支持PNG文件。</li>
+<li>JPEG图片格式，目前最流行的图像格式，可以把文件压缩到最小的格式，下载速度快，存在一定损耗。</li>
+<li>BMP图片格式，windows系统标准图像，缺点–占用磁盘空间过大，在单机上比较流行</li>
+<li>webp是有谷歌推出的新一代图片格式，在压缩房名比当前JPEG格式更优越，同时提供了有损压缩和无损压缩的图片文件格式，派生图片编码格式VP8.</li>
+</ol>
+<h4 id="12-前端页面有那三层构成，分别是什么，作用是什么？"><a href="#12-前端页面有那三层构成，分别是什么，作用是什么？" class="headerlink" title="12.前端页面有那三层构成，分别是什么，作用是什么？"></a>12.前端页面有那三层构成，分别是什么，作用是什么？</h4><ol>
+<li>结构层：由HTML或XHTML之类的标记语言负责创建，仅负责表达语义，解决了页面“内容是什么”的问题。</li>
+<li>表现层：由css负责创建，解决了页面“如何显示内容”的问题。</li>
+<li>行为层：由脚本负责，解决了页面上“内容应该入耳对事件作出反应的”的问题。</li>
+</ol>
+<h4 id="13-css的基本语句构成是？"><a href="#13-css的基本语句构成是？" class="headerlink" title="13.css的基本语句构成是？"></a>13.css的基本语句构成是？</h4><ul>
+<li>选择器{ 属性1： 值；属性2：值}</li>
+</ul>
+<h4 id="14-css选择符有哪些？哪些属性可以继承？优先级算法？css3新增伪类有哪些？"><a href="#14-css选择符有哪些？哪些属性可以继承？优先级算法？css3新增伪类有哪些？" class="headerlink" title="14.css选择符有哪些？哪些属性可以继承？优先级算法？css3新增伪类有哪些？"></a>14.css选择符有哪些？哪些属性可以继承？优先级算法？css3新增伪类有哪些？</h4>
       
 
       
@@ -390,8 +412,8 @@
     </a>
   
   
-    <a href="/2017/07/01/经典面试题-2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">经典面试题</div>
+    <a href="/2017/07/01/今天七月一日/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">今天七月一日</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -497,6 +519,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">gulp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">browserSync</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">笔记</a>
