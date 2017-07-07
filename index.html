@@ -155,6 +155,53 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/07/1/">1</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/07/1/" class="archive-article-date">
+  	<time datetime="2017-07-07T03:47:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/07/1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="w-gulp的介绍使用和browserSync同步刷新" class="article article-type-w  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -187,7 +234,7 @@
 <p>*=====================================================</p>
 <h3 id="browser-sync-的使用"><a href="#browser-sync-的使用" class="headerlink" title="browser-sync 的使用"></a>browser-sync 的使用</h3><h4 id="和gulp集成使用"><a href="#和gulp集成使用" class="headerlink" title="和gulp集成使用"></a>和gulp集成使用</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1. 为gulp安装browser-sync的包</span></div><div class="line">cnpm install browser-sync --save-dev</div><div class="line"></div><div class="line"><span class="comment">//2. 在gulpfile中应用模块</span></div><div class="line"><span class="keyword">var</span> browserSync = <span class="built_in">require</span>(<span class="string">"browser-sync"</span>).create();</div><div class="line"></div><div class="line"><span class="comment">//3. 创建任务</span></div><div class="line">gulp.task(<span class="string">"browser"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">//3.1 创建一个静态服务器</span></div><div class="line">	browserSync.init(&#123;</div><div class="line">		<span class="attr">server</span>: &#123;</div><div class="line">			<span class="comment">//设置网站的根目录</span></div><div class="line">			baseDir: <span class="string">"./"</span></div><div class="line">		&#125;</div><div class="line">	&#125;)</div><div class="line">	<span class="comment">//3.2 监视文件的变化，执行指定的任务并且刷新浏览器</span></div><div class="line">	gulp.watch(<span class="string">"要监视的文件"</span>, [<span class="string">"需要在文件改变后执行的任务"</span>]);</div><div class="line"></div><div class="line">	gulp.watch(<span class="string">"要监视的文件"</span>, browserSync.reload);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h4 id="单独使用browser-sync"><a href="#单独使用browser-sync" class="headerlink" title="单独使用browser-sync"></a>单独使用browser-sync</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1. 全局安装browser-sync</span></div><div class="line">npm install -g browser-sync</div><div class="line"></div><div class="line"><span class="comment">//2. 执行browsersync命令</span></div><div class="line">browser-sync start --server --files <span class="string">"*.js, *.html, *.less"</span></div></pre></td></tr></table></figure>
-<hr>
+<p>*=======================================================</p>
 <h2 id="gulp的使用步骤"><a href="#gulp的使用步骤" class="headerlink" title="gulp的使用步骤"></a>gulp的使用步骤</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1. 全局安装gulp命令</span></div><div class="line">npm install -g gulp-cli</div><div class="line"></div><div class="line"><span class="comment">//2. 在本地文件夹安装gulp相关的包</span></div><div class="line"><span class="comment">//安装之前先执行以下 npm init -y这个命令生成一个package.json</span></div><div class="line"><span class="comment">//要不然会把文件安装到用户根目录</span></div><div class="line"></div><div class="line">npm install gulp --save-dev</div><div class="line">npm install gulp -D</div><div class="line"></div><div class="line"><span class="comment">//3. 创建一个gulpfile.js</span></div><div class="line"></div><div class="line"><span class="comment">//4. 在gulpfile.js中引入gulp包</span></div><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">"gulp"</span>);</div><div class="line"></div><div class="line"><span class="comment">//5. 在gulpfile.js中创建新的任务</span></div><div class="line">gulp.task(<span class="string">"任务名称"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">//任务内容</span></div><div class="line"></div><div class="line">	<span class="comment">//5.1 操作哪些文件，就是用gulp.src方法去读取文件</span></div><div class="line">	gulp.src(<span class="string">"./*.js"</span>)</div><div class="line">	<span class="comment">//5.2 通过gulp.pipe方法，将读取到的文件传递给下一个工作项(插件)</span></div><div class="line">	.pipe(uglify())</div><div class="line">	<span class="comment">//5.3 再通过pipe方法，将压缩好的内容传递给下一个工作项</span></div><div class="line">	<span class="comment">//gulp.dest 是用来将当前管道中的内容保存到指定的位置，如果这个位置不存在</span></div><div class="line">	<span class="comment">//他会自己创建的，文件名不需要指定，他会使用原来的文件名</span></div><div class="line">	.pipe(gulp.dest(<span class="string">"./dist"</span>))</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="gulp插件的使用过程"><a href="#gulp插件的使用过程" class="headerlink" title="gulp插件的使用过程"></a>gulp插件的使用过程</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1. 下载插件包</span></div><div class="line">npm install 插件包名称 -D</div><div class="line"></div><div class="line"><span class="comment">//2. 查看插件的文档  npmjs.com 搜索插件名称</span></div><div class="line"></div><div class="line"><span class="comment">//3. 引入插件包</span></div><div class="line"><span class="keyword">var</span> uglify = <span class="built_in">require</span>(<span class="string">"uglify"</span>);</div><div class="line"></div><div class="line"><span class="comment">//4.在管道中使用插件</span></div><div class="line">.pipe(uglify())</div></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//案例：</span></div><div class="line">   gulp.task(<span class="string">"hebing"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   	gulp.src([<span class="string">"./index.js"</span>, <span class="string">"./base.js"</span>])</div><div class="line">   	.pipe(concat(<span class="string">"all.js"</span>))</div><div class="line">   	.pipe(uglify())</div><div class="line">   	.pipe(gulp.dest(<span class="string">"./dist"</span>))</div><div class="line">   &#125;)</div><div class="line">   </div><div class="line">   gulp.task(<span class="string">"browser"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   	browserSync.init(&#123;</div><div class="line">           <span class="attr">server</span>: &#123;</div><div class="line">               <span class="attr">baseDir</span>: <span class="string">"./"</span></div><div class="line">           &#125;</div><div class="line">   	&#125;);</div><div class="line">   </div><div class="line">   	gulp.watch(<span class="string">"./index.html"</span>).on(<span class="string">'change'</span>, reload)</div><div class="line">   	gulp.watch(<span class="string">"./index.js"</span>, [<span class="string">"js"</span>])</div><div class="line">   &#125;)</div></pre></td></tr></table></figure>
@@ -257,40 +304,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/07/06/gulp的介绍使用和browserSync同步刷新/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-hello-world/README" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="hello-world"><a href="#hello-world" class="headerlink" title="hello-world"></a>hello-world</h1><p>My first repository</p>
-<p>My name is TonyTong, I like HTML,CSS and JavaScript(that’s what I’m made of!),this is my first repository and first code,yes,it’s a classic statement!</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/06/hello-world/README/">展开全文 >></a>
         </p>
       
 
@@ -524,7 +537,57 @@
 <h4 id="13-css的基本语句构成是？"><a href="#13-css的基本语句构成是？" class="headerlink" title="13.css的基本语句构成是？"></a>13.css的基本语句构成是？</h4><ul>
 <li>选择器{ 属性1： 值；属性2：值}</li>
 </ul>
-<h4 id="14-css选择符有哪些？哪些属性可以继承？优先级算法？css3新增伪类有哪些？"><a href="#14-css选择符有哪些？哪些属性可以继承？优先级算法？css3新增伪类有哪些？" class="headerlink" title="14.css选择符有哪些？哪些属性可以继承？优先级算法？css3新增伪类有哪些？"></a>14.css选择符有哪些？哪些属性可以继承？优先级算法？css3新增伪类有哪些？</h4>
+<h4 id="14-css选择符有哪些？哪些属性可以继承？优先级算法？css3新增伪类有哪些？"><a href="#14-css选择符有哪些？哪些属性可以继承？优先级算法？css3新增伪类有哪些？" class="headerlink" title="14.css选择符有哪些？哪些属性可以继承？优先级算法？css3新增伪类有哪些？"></a>14.css选择符有哪些？哪些属性可以继承？优先级算法？css3新增伪类有哪些？</h4><ul>
+<li>选择符：id选择器，类选择器，标签选择器，子选择器，后代选择器，通配符选择器，属性选择器，相邻选择器，伪类选择器。<br>可继承：font-size，font-family，color，ul，li，DL。<br>不可继承：border，padding，margin，width，height。<br>优先级：！improtant &gt; 行内式样式 &gt; id &gt; class &gt; tag &gt; 通配符 &gt; 继承 &gt; 默认</li>
+</ul>
+<h4 id="15-简介盒子模型？"><a href="#15-简介盒子模型？" class="headerlink" title="15.简介盒子模型？"></a>15.简介盒子模型？</h4><p>css盒子的模型由两种：IE盒子模型 、标准的W3C盒子模型的基本属性<br>内容content，填充padding ，边框border，边界margin。这些都是盒子的基本属性。<br>区别： 标准的W3C盒子模型是：设置border的值只包括content和padding<br>IE盒子模型：设置的border的值包括content和border。</p>
+<h4 id="16。有哪些方式可以对一个DOM设置他的css样式？"><a href="#16。有哪些方式可以对一个DOM设置他的css样式？" class="headerlink" title="16。有哪些方式可以对一个DOM设置他的css样式？"></a>16。有哪些方式可以对一个DOM设置他的css样式？</h4><ol>
+<li>外部样式表：link标签引入一个外部css样式。</li>
+<li>内部样式表：css代码放在<head>标签内部。</head></li>
+<li>内联样式： css样式直接定义在HTML元素内部。</li>
+</ol>
+<h4 id="17-css中可以通过哪些属性定义，使得一个DOM元素不像是在浏览器可视范围内？"><a href="#17-css中可以通过哪些属性定义，使得一个DOM元素不像是在浏览器可视范围内？" class="headerlink" title="17.css中可以通过哪些属性定义，使得一个DOM元素不像是在浏览器可视范围内？"></a>17.css中可以通过哪些属性定义，使得一个DOM元素不像是在浏览器可视范围内？</h4><p>基本的：设置display:none(不占位置),或者设置visibility:hidden(占位置)<br> 区别：display:none 属性后，HTML元素的宽度，高度等各种属性值都将会“丢失”，<br>       visibility:hidden 属性后，HTML元素仅仅是视觉上看不见。而他仍然存在。<br>技术性：设置宽高为0，设置透明度为0，设置z-index位置在-1000</p>
+<h4 id="18-img的alt-和title有何异同？-strong和em的异同。"><a href="#18-img的alt-和title有何异同？-strong和em的异同。" class="headerlink" title="18.img的alt 和title有何异同？ strong和em的异同。"></a>18.img的alt 和title有何异同？ strong和em的异同。</h4><p>alt属性是当图片由于某种原因加载不出来的时候，在页面显示提示信息。直接显示在原本图片加载的地方。<br>title属性是 当鼠标悬停在该图片上，显示的一个小提示。鼠标离开就没有了。有点类似hover专门做提示信息。<br>默认样式看：<code>&lt;em&gt;</code>默认样式是斜体，<code>&lt;strong&gt;</code>默认样式是粗体。<br>语义上：<code>&lt;em&gt;</code>用来局部强调，<code>&lt;strong&gt;</code>则是全局强调。一般开发总用strong标签，使用em和strong标签可以为SEO关键词排名加分。</p>
+<h4 id="19-简述src和href的区别？"><a href="#19-简述src和href的区别？" class="headerlink" title="19.简述src和href的区别？"></a>19.简述src和href的区别？</h4><p>src 用于替换当前元素引入。 href用于当前文档和引用资源之间确定关系。<br>在请求src资源的时候，会将其指向的资源下载并加载当文档中。会暂停其他资源的下载和处理，直到该资源的加载，编译和执行完毕。<br>href 例如<code>&lt;link href=&quot;&quot;&gt;</code>并行 下载资源并且不会停止对当前文档的处理。这就是使用link方式加载css样式，而不是@import方式。</p>
+<h5 id="补充link和-import的区别。相同点是-引入css样式。"><a href="#补充link和-import的区别。相同点是-引入css样式。" class="headerlink" title="补充link和@import的区别。相同点是 引入css样式。"></a>补充link和@import的区别。相同点是 引入css样式。</h5><p>不同点：</p>
+<ol>
+<li>link是HTML标签，处理加载css样式外还可以定义RSS等其他事物；@import属于css范畴，只能加载css。</li>
+<li>link引用css时，在页面载入时加载；@import需要页面完全载入后加载。</li>
+<li>link是XHTML标签。没有兼容性问题。@import是在css2.1提出的，低版本的浏览器不支持。</li>
+<li>link支持使用JavaScript控制DOM去改变样式，而@import不支持。</li>
+</ol>
+<h4 id="20-px-、-em-和-rem-的区别。"><a href="#20-px-、-em-和-rem-的区别。" class="headerlink" title="20.px 、 em 和 rem 的区别。"></a>20.px 、 em 和 rem 的区别。</h4><ol>
+<li>px像素。绝对单位。相对于显示器屏幕分辨率而言的，是一个虚拟长度单位。</li>
+<li>em是相对长度单位。相对于当前对象内文本的字体尺寸。如果当前行内文本的字体尺寸没有被设置，则相对于浏览器的默认字体尺寸。会继承父级元素的字体大小，因此不是一个固定值。</li>
+<li>rem是css3新增的一个相对单位。相对大小，但是相对于HTML的根元素。</li>
+</ol>
+<h4 id="21-行内元素和块级元素的具体区别是什么？行内的padding-和margin可设置吗？"><a href="#21-行内元素和块级元素的具体区别是什么？行内的padding-和margin可设置吗？" class="headerlink" title="21.行内元素和块级元素的具体区别是什么？行内的padding 和margin可设置吗？"></a>21.行内元素和块级元素的具体区别是什么？行内的padding 和margin可设置吗？</h4><p>一、块级元素blockElement</p>
+<ul>
+<li>块级元素默认占一整行，可嵌套块级元素或行内元素，一般用作容器出行，用来组织结构。div最常用的块级元素。display:block可以设置成块级元素。<br>** 块级元素的特点：<br> 1)总是在新的一行上开始，2)高度，行高以及外边距和内边距都可控制；3)宽度缺省是他容器的100%，除非设定一个宽度。4)可以容乃内联元素和其他块元素。<br>二、行内元素：inlineElement</li>
+<li>内联元素。行内元素一般都是基于语义级的基本元素，只能容纳文本或其他内联元素，可以通过设置display:inline成行内元素。<br>行内元素的特点：<br>1)和其他元素都在一样上；2)高，行高以及外边距和内边距不可改变；3)宽度就是他的文字或图片的宽度，不可改变。4)内联元素只能容纳文本或者其他内联元素。<br>对行内元素需要注意：设置宽度width无效，设置高度height无效。可以通过line-height来设置。设置margin 只有左右有效，上下无效。 设置padding只有左右有效，上下无效。注意元素范围是增大了，但是对元素周围的内容是内有影响的。<br>常见的空元素：<code>&lt;br&gt;</code> <code>&lt;hr&gt;</code> <code>&lt;input&gt;</code> <code>&lt;img&gt;</code></li>
+</ul>
+<h4 id="22-rgba-和opacity的透明效果有什么不同？"><a href="#22-rgba-和opacity的透明效果有什么不同？" class="headerlink" title="22.rgba()和opacity的透明效果有什么不同？"></a>22.rgba()和opacity的透明效果有什么不同？</h4><p>rgba()和opacity都能实现透明效果。<br>opacity作用域元素，以及元素内的所有内容的透明度。<br>rgba()只作用于元素的颜色或背景色。(设置rgba透明的元素的子元素不会继承透明效果)</p>
+<h4 id="23-css中可以让文字在垂直和水平方向上重叠的两个属性是什么？"><a href="#23-css中可以让文字在垂直和水平方向上重叠的两个属性是什么？" class="headerlink" title="23.css中可以让文字在垂直和水平方向上重叠的两个属性是什么？"></a>23.css中可以让文字在垂直和水平方向上重叠的两个属性是什么？</h4><p>垂直方向：line-height：0 垂直上缩成一行。<br>水平方向：letter-spacing：字体大小 font-size：值取负<br>    letter-spacing 还可以用于消除inline-block元素间的空格间隙。</p>
+<h4 id="24-BFC是什么"><a href="#24-BFC是什么" class="headerlink" title="24. BFC是什么?"></a>24. BFC是什么?</h4><p>BFC(块级格式化上下文)，一个独立的渲染区域，只有块级元素参与，规定了内部块级元素的不急方式，且该去不于外部无关。<br>BFC 元素特性表现原则：内部子元素在怎变动都不会影响外部元素。</p>
+<ul>
+<li>布局规则：</li>
+<li>1.内部BOX会垂直方形上一个接一个放置，随意是从上向下排列。</li>
+<li>2.元素的margin左边和父级的左边紧挨，浮动元素也是这样，所以是从左向右排列。</li>
+<li>3.box垂直方向上距离有margin决定。但同一个BFC内的两个相邻元素的margin会楚翔外边距合并(overflow可以解决外边距合并)。</li>
+<li>4.BFC是页面上一个隔离的独立容器，内容子元素不影响外部元素</li>
+<li>5.计算BFC高度是，浮动元素也参与计算(overflow清除浮动以后可以撑开盒子高度)。<br>BFC的生成：<br>1)根元素 2)float属性不为none 3)position为absolute或者fixed 4)display为inline=-block, teble-cell, table-caption, flex, inline-flex 5)overflow不为visible</li>
+</ul>
+<h4 id="25-列出display的值以及作用。position的值，relative-和absolute定位原点？"><a href="#25-列出display的值以及作用。position的值，relative-和absolute定位原点？" class="headerlink" title="25.列出display的值以及作用。position的值，relative 和absolute定位原点？"></a>25.列出display的值以及作用。position的值，relative 和absolute定位原点？</h4><p><strong> display<br>|display|作用|<br>|—–:|:——:|<br>|block|块级元素，单独占一行，能设置宽高margin和padding值|<br>|inline-block|能像块级元素一样设置宽高，但也能像行内元素一样，和其他div平列一行|<br>|inline|行内元素的默认显示方式|<br>|none|缺省值(不存在页面中)|
+</strong> position<br>|position|作用|<br>|—–|——|<br>|relative|相对定位，相对于其正常位置进行定位|<br>|absolute|绝对定位，相对于非static定位的第一个直接元素进行定位|<br>|fixed|(老IE不支持)生成绝对定位的元素，相对于浏览器窗口进行定位|<br>|static|默认值.没有定位，元素出现在正常的流中|</p>
+<h4 id="26-Sass、less-是什么？"><a href="#26-Sass、less-是什么？" class="headerlink" title="26.Sass、less 是什么？"></a>26.Sass、less 是什么？</h4><p>Sass、Less是最常见的css预处理器框架。<br>优点：结构清晰，便于扩展； 可以方便的屏蔽浏览器私有语法差异； 减少无意义的机械劳动；可以轻松实现多处继承。<br>less等预处理器框架只是在css语法上做了扩展，完全兼容css代码。</p>
+<h3 id="27-HTML常见兼容性问题？"><a href="#27-HTML常见兼容性问题？" class="headerlink" title="27.HTML常见兼容性问题？"></a>27.HTML常见兼容性问题？</h3><p><strong> 1.IE的双边距bug<br>    问题:块级元素float后设置横向margin，IE6显示的margin比设置的较大。<br>    解决：给块级元素设置_display:inline;(只有IE6识别);
+</strong> 2.超链接访问过后的hover样式就不会出现的问题是什么？<br>    问题：被点击访问后的超链接样式不在具有hover和active了<br>    解决：改变css属性的排列顺序：L-V-H-A(link,visited,hover,active);<br><strong> 3.3个像素问题<br>    问题：在IE7中两个div是紧挨着的，但是在IE6中会出现两个div之间3px间距。<br>    解决：由于使用float引起的， 使用display：inline-3px可以解决。
+</strong> 4.IE z-index 问题<br>   问题：父元素有定位，子元素设置z-index多少，都会显示在最上面。<br>   解决：应为z-index受继承的，父元素有定位，默认z-index为1，那么子元素也就z-index为1，要想改变，就得给父元素设置position：relative后再设置z-index。<br><strong> 5. IE5-8 不支持opacity<br>   解决：使用滤镜：filter<br>   filter：alpha(opacity=60);<br>   -ms-filter:”…”
+</strong> 6. IE6不支持PNG透明背景<br>   解决：IE6下使用GIF图片<br><strong> 7.PNG透明<br>   问题:用透明PNG图片作为连接的背景，图像的透明部分变得不能点击。<br>   解决：在兼容IE的代码中，给a标签设置背景，而background的url()设置为当前页面上。
+</strong> 8.Min-height 最小高度<br>   解决：用！improtant  height:auto !improtant; height:最小px<br><strong> 9.slect在IE6下遮盖 使用iframe 嵌套。<br>   解决：用iframe当div的底，div可以遮盖iframe，iframe可以遮盖select
+</strong> 10.没办法定义1px左右的宽度容器<br>    问题：IE6默认的行高造成的。<br>    解决：使用over：hidden；zoom：0.08，line-height：1px.可以解决。<br><strong> 11.浏览器默认的margin和padding不同。<br>   解决：加一个全局的margin：0;padding:0 css初始化一下。
+</strong> 12 a(href属性)标签嵌套下的img标签，在IE下会有边框。<br>   解决：a img{border:none}<br>** 13. input中button会有默认的边框，阴影。<br>   解决：border:none; 解决：在IE6以下，还需要加上border-color:transparet.</p>
+
       
 
       
@@ -796,11 +859,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">gulp</a>
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">browserSync</a>
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -808,11 +871,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color5">gulp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">html</a>
+                <a href="javascript:void(0)" class="js-tag color2">browserSync</a>
               </li>
             
             <div class="clearfix"></div>
