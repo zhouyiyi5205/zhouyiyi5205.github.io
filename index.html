@@ -155,6 +155,298 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-browser-sync代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/24/browser-sync代理/">browser-sync代理</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/24/browser-sync代理/" class="archive-article-date">
+  	<time datetime="2017-09-24T09:18:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="browser-sync实现代理"><a href="#browser-sync实现代理" class="headerlink" title="browser-sync实现代理"></a>browser-sync实现代理</h1><p><code>var browserSync = require(&#39;browser-sync&#39;).create()</code><br><code>var proxy = require(&#39;http-proxy-middleware&#39;) // require(&#39;http-proxy-middleware&#39;);</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Configure proxy middleware</div><div class="line"> */</div><div class="line">// 这里配置当以 /api 请求的时候，转发到 http://127.0.0.1:5000</div><div class="line">// origin 原本的，源路径</div><div class="line">// 一般发起请求的时候，浏览器都会在请求头中加入一个 origin 字段，表示当前请求的来源</div><div class="line">//    例如我有一个页面：http://127.0.0.1:3000/index.html</div><div class="line">//    页面中发起了一个请求：/api/users 浏览器会帮你自动加上 http://127.0.0.1:3000/api/users 发起请求</div><div class="line">//    同时在请求头中加入一个源：http://127.0.0.1:3000</div><div class="line">//    </div><div class="line">//    这个源到底有什么用？</div><div class="line">//       有些服务器会根据这个请求的来源来限制一些非法请求</div><div class="line">//    例如：我在 http://127.0.0.1:3000/index.html 发起了一个 </div><div class="line">//        http://127.0.0.1:5000/users 的请求</div><div class="line">//        则该请求的 origin 来源是 http://127.0.0.1:3000</div><div class="line">//        所以这里的 changeOrigin 表示将请求的来源 origin 改为 http://127.0.0.1:5000</div><div class="line">//        这样就通过欺骗服务器的方式解决对方对 origin 来源的限制</div><div class="line">//        欺骗对方服务器我不是代理</div><div class="line">//        </div><div class="line">//     pathRewrite 表示路径重写</div><div class="line">//     举个例子：</div><div class="line">//       如果我当前请求的是 /api/heros</div><div class="line">//            则默认代理转发到 http://127.0.0.1:5000/api/heros</div><div class="line">//       关键是我的服务器的接口没有 /api 前缀</div><div class="line">//       所以这里我通过 pathRewrite 的方式重写路径的方式修改掉 /api</div><div class="line">//        那这个时候如果请求 /api/heros</div><div class="line">//        则先将 /api 重写成 &apos;&apos;</div><div class="line">//        然后将重写的结果和剩余部分拼接起来发起请求：http://127.0.0.1:5000/heros</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var jsonPlaceholderProxy = proxy(&apos;/api&apos;, &#123;</div><div class="line">  target: &apos;http://127.0.0.1:5000&apos;,</div><div class="line">  changeOrigin: true,             // for vhosted sites, changes host header to match to target&apos;s host</div><div class="line">  pathRewrite: &#123;</div><div class="line">    &apos;^/api&apos;: &apos;&apos;</div><div class="line">  &#125;,</div><div class="line">  logLevel: &apos;debug&apos;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Add the proxy to browser-sync</div><div class="line"> */</div><div class="line">browserSync.init(&#123;</div><div class="line">  server: &#123;</div><div class="line">    baseDir: &apos;./&apos;,</div><div class="line">    middleware: [jsonPlaceholderProxy]</div><div class="line">  &#125;,</div><div class="line">  port: 8080,</div><div class="line">  startPath: &apos;/&apos;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">console.log(&apos;[DEMO] Server: listening on port 8080&apos;)</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">browser-sync</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代理</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/browser-sync/" class="article-tag-list-link color3">browser-sync</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/24/browser-sync代理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-JS基础面试题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/18/JS基础面试题/">JS基础面试题</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/18/JS基础面试题/" class="archive-article-date">
+  	<time datetime="2017-07-18T12:48:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="JS基础面试题"><a href="#JS基础面试题" class="headerlink" title="JS基础面试题"></a>JS基础面试题</h3><h4 id="1-javascript的typeof返回那些数据类型？"><a href="#1-javascript的typeof返回那些数据类型？" class="headerlink" title="1.javascript的typeof返回那些数据类型？"></a>1.javascript的typeof返回那些数据类型？</h4><ul>
+<li>number boolean string undefined object function</li>
+</ul>
+<h4 id="2-例举3种强制类型转换和-2中隐式类型转换？"><a href="#2-例举3种强制类型转换和-2中隐式类型转换？" class="headerlink" title="2.例举3种强制类型转换和 2中隐式类型转换？"></a>2.例举3种强制类型转换和 2中隐式类型转换？</h4><ul>
+<li>强制：<code>parseInt</code>  <code>parseFloat</code>  <code>Number</code></li>
+<li>隐式： +string可以转成数字， a+”” 可以转成字符串， !var 可以转成布尔值</li>
+</ul>
+<h4 id="3-传统事件绑定和符合W3C标准的事件绑定有什么区别？"><a href="#3-传统事件绑定和符合W3C标准的事件绑定有什么区别？" class="headerlink" title="3.传统事件绑定和符合W3C标准的事件绑定有什么区别？"></a>3.传统事件绑定和符合W3C标准的事件绑定有什么区别？</h4><ul>
+<li>DOM 0 传统事件绑定： 如onclick –&gt; 会出现同一元素同名事件的覆盖，不支持DOM事件流事件捕获阶段。</li>
+<li>DOM 1 没有事件绑定规范–&gt; ie绑定：attachEvent(‘onclick’,function(){}); 不支持捕获。</li>
+<li>DOM 2 事件绑定：addEventListener(‘click’,function(){},true);参数3为true支持捕获  参数3为false 支持冒泡。不会出现同名事件覆盖，支持完整事件流。</li>
+<li>事件流 ：捕获–目标–冒泡   事件绑定是指把事件注册到具体的元素智商，普通事件指的是可以用来注册的事件。<h4 id="4-事件冒泡和事件委托"><a href="#4-事件冒泡和事件委托" class="headerlink" title="4.事件冒泡和事件委托"></a>4.事件冒泡和事件委托</h4></li>
+<li>事件冒泡：当一个元素上的事件被触发的时候，比如点击了一个按钮，同样的事件将会在那个元素的所有祖先元素中被触发。这个过程叫做事件冒泡。这个事件从原始元素开始一直冒泡到DOM数的最上层。</li>
+<li>阻止事件冒泡：标准浏览器：e.stopPropagation(); ie9之前：event.canceBubble= true;</li>
+<li>阻止默认事件：为了不让a (form表单提交)点击之后跳转，阻止点击事件： 1)return false; 2)e.preventDefault();</li>
+<li>事件委托：让利用事件冒泡的原理，让自己的所触发的事件，让他的父元素代替执行。</li>
+</ul>
+<h4 id="5-IE-和标准下有哪些兼容性的写法"><a href="#5-IE-和标准下有哪些兼容性的写法" class="headerlink" title="5.IE 和标准下有哪些兼容性的写法"></a>5.IE 和标准下有哪些兼容性的写法</h4><ul>
+<li>var event =  event || window.event;</li>
+<li>document.documentElement.clientWidth || document.body.clientWidth</li>
+<li>var target = event.srcElement || event.target;<h4 id="6-call-和-apply-的区别？"><a href="#6-call-和-apply-的区别？" class="headerlink" title="6.call 和 apply 的区别？"></a>6.call 和 apply 的区别？</h4></li>
+<li>call 和apply 都是为了改变某个函数运行时的context即上下文而存在的，也就是为了改变函数体内部this的指向。因为JavaScript 的函数存在[定义时上下文] 和[运行时上下文] 以及[上下文是可以改变的]这样的概念。</li>
+<li>二者的作用是完全一样的，不一样的是传递的参数的方式不太一样，二者参数1都是this ，call 第二个参数是需要把参数按照顺序一个一个的传递进去，而apply 是把参数放在一个数组[或者具有小标索引的伪数组]，若第一个参数为null 那么函数中的this,指向window</li>
+</ul>
+<ul>
+<li>Bind 也可以改变当前this的指向，返回的是这个函数。</li>
+</ul>
+<h4 id="7-b继承-a-的方法。"><a href="#7-b继承-a-的方法。" class="headerlink" title="7. b继承 a 的方法。"></a>7. b继承 a 的方法。</h4><ul>
+<li>继承：原型继承，借用构造函数继承，组合继承  拷贝继承</li>
+<li>一般最简单面试会用的继承方式：原型继承 b.prototype = new a();</li>
+</ul>
+<h4 id="8-添加删除替换插入到某个节点的方法"><a href="#8-添加删除替换插入到某个节点的方法" class="headerlink" title="8.添加删除替换插入到某个节点的方法"></a>8.添加删除替换插入到某个节点的方法</h4><ul>
+<li>obj.appendChild()   //后面追加子节点</li>
+<li>obj.insertBefore()  //插入子节点，参数2为null时等同于appendChild</li>
+<li>obj.replaceChild()  //替换子节点，参数：新节点，旧节点</li>
+<li>obj.removeChild()   //删除子节点</li>
+<li>jQuery还提供了append insertBefore insertAfter after perpend after appendTo </li>
+</ul>
+<h4 id="9-JavaScript的本地对象、内置队形-和宿主对象"><a href="#9-JavaScript的本地对象、内置队形-和宿主对象" class="headerlink" title="9.JavaScript的本地对象、内置队形 和宿主对象"></a>9.JavaScript的本地对象、内置队形 和宿主对象</h4><ul>
+<li>本地对象：array、obj 、regexp 等可以new 实例化</li>
+<li>内置对象：global 、Math等不可以实例化(也是本地对象，global不存在，但是类似于isNaN(),parseInt(),parseFloat()方法都是他的方法)；</li>
+<li>宿主对象为浏览器提供的对象，所有的Bom 和 DOM ，如document，window 等</li>
+</ul>
+<h4 id="10-JavaScript是一门什么样的语言。他有那些特点？"><a href="#10-JavaScript是一门什么样的语言。他有那些特点？" class="headerlink" title="10.JavaScript是一门什么样的语言。他有那些特点？"></a>10.JavaScript是一门什么样的语言。他有那些特点？</h4><ul>
+<li>弱类型:声明变量都使用var [ES6中有let 和 conset]</li>
+<li>动态类型：声明时类型不定，运行时才明确变量类型，我可以随意添加属性、方法。</li>
+<li>解析型：遇到一行解析一样(区别是编译型是全解析在执行);</li>
+<li>脚本语言：不需要编译，直接执行。</li>
+</ul>
+<h4 id="11、如何判断某变量是否为数组数据类型"><a href="#11、如何判断某变量是否为数组数据类型" class="headerlink" title="11、如何判断某变量是否为数组数据类型"></a>11、如何判断某变量是否为数组数据类型</h4><ul>
+<li>方法一：能力检测，判断是否拥有数组的非农股份，可能兼容问题</li>
+<li>方法二：obj instanceof Array 在某些IE版本中不正确，判断是否为Array的实例。</li>
+<li>方法三：在ES5中定义了新方法 Array.isArray(),保证其兼容性，最好的方法如下：<br><code>js
+isArray:function(obj){
+return Array.isArray? ArrayisArray(obj):object.prototype.toString.call(arg)===&#39;[object Array]&#39;
+}</code><h4 id="12-看下类代码输出是什么-变量提升和简单数据类型"><a href="#12-看下类代码输出是什么-变量提升和简单数据类型" class="headerlink" title="12.看下类代码输出是什么(变量提升和简单数据类型)"></a>12.看下类代码输出是什么(变量提升和简单数据类型)</h4><code>js
+   var a ;
+console.log(a);         //声明未赋值 undefined
+console.log(typeof a);  //类型是undefined
+console.log(b);         //没有声明变量b，报错
+b = 10;                    
+console.log(typeof b);  //类型是&#39;number&#39;</code><h4 id="13-undefined-会在一下三种情况下产生。"><a href="#13-undefined-会在一下三种情况下产生。" class="headerlink" title="13.undefined 会在一下三种情况下产生。"></a>13.undefined 会在一下三种情况下产生。</h4><!-- -    1.一个变量，声明未赋值。2.想要获取一个对象上不存在的属性或者方法。 3.一个数组中没有被赋值的元素。 --></li>
+<li>区分undefined 和 not defined (语法错误) 是不一样的</li>
+</ul>
+<h4 id="14-看下面代码输出什么？"><a href="#14-看下面代码输出什么？" class="headerlink" title="14.看下面代码输出什么？"></a>14.看下面代码输出什么？</h4><p>``js<br>    var undefined;<br>    console.log(undefined == null); //true<br>    console.log(1==true);    //true<br>    console.log(2==true);   //false<br>    console.log(0==false);    //true<br>    console.log(0==””);        //true<br>    console.log([]==false); //true<br>    console.log([]==![]);    //true<br>    console.log(NaN == NaN); //不等于自己 false</p>
+<pre><code>var foo = &apos;11&apos; + 2 -&apos;1&apos;;
+console.log(foo);         //111
+console.log(typeof foo);  //number
+</code></pre><p>``</p>
+<h4 id="15-看代码给答案："><a href="#15-看代码给答案：" class="headerlink" title="15.看代码给答案："></a>15.看代码给答案：</h4><p><code>js
+    var a = new Object();
+    a.value = 1;
+    b = a;        //引用数据类型，a 和 b 是指向同一个堆中的数据
+    b.value = 2;        
+    console.log(a.value);  //2</code></p>
+<h4 id="16-写一个function将字符串-foo-’get-element-by-id’转换成驼峰表示法“getElementById”"><a href="#16-写一个function将字符串-foo-’get-element-by-id’转换成驼峰表示法“getElementById”" class="headerlink" title="16.写一个function将字符串 foo=’get-element-by-id’转换成驼峰表示法“getElementById”"></a>16.写一个function将字符串 foo=’get-element-by-id’转换成驼峰表示法“getElementById”</h4><p><code>js
+    function combo(msg){
+        var arr = msg.split(&#39;-&#39;);  //字符串用-来分割成数组
+        // 第一个元素不做处理，从第二个开始遍历
+        for (var i = 0; i &lt; arr.length; i++) {
+            // 遍历转换元素，首字母大写
+            arr[i] = arr[i].charAt(0).toUpperCase()+arr[i].substr(1,arr[i].length-1);
+        }
+        msg = arr.join(&quot;&quot;);
+        return msg;
+    }
+    var str = &#39;get-element-by-id&#39;;
+    console.log(combo(str));</code></p>
+<h4 id="17-实现对该数组的倒序排列，降序排列-冒泡-？"><a href="#17-实现对该数组的倒序排列，降序排列-冒泡-？" class="headerlink" title="17.实现对该数组的倒序排列，降序排列(冒泡)？"></a>17.实现对该数组的倒序排列，降序排列(冒泡)？</h4><p><code>js
+    var arr = [2,1,3];
+    // reverse 方法颠倒数组中元素的位置，并返回该数组的引用。
+    console.log(arr.reverse());   //[3,2,1]
+    for (var i = 0; i &lt; arr.length; i++) {
+        for (var j = 0; j &lt; arr.length-i-1; j++) {
+            if(arr[j] &lt; arr[j+1]){
+                [ arr[j],arr[j+1] ] = [ arr[j+1], arr[j] ]
+            }
+        }
+    }
+    console.log(arr);  //[3,2,1]</code></p>
+<h4 id="18-日期对象的常用方法"><a href="#18-日期对象的常用方法" class="headerlink" title="18.日期对象的常用方法"></a>18.日期对象的常用方法</h4><p><code>js
+    var data  = new Date();
+    var year  = date.getFullYear();  //获取年
+    var month = date.getMonth();     //获取月份，从0开始。
+    var day = date.getDate();  //获取日，每个月当中的第几天
+    var week = date.getDay()  //获取星期几 0代表星期日 6代表周六。
+    var hour = date.getHours(); //获取小时 0-23
+    var minutes = date.getMinutes //获取分 0-59
+    var second = date.getseconds  //获取秒 0-59
+    var ms = date.getMilliseconds //获取毫秒 0-999
+    var tatolms = date.getTime()  //获取时间的总毫秒数
+    //===========================================
+    function DateDemo(){
+        var d,s  = &quot;今天日期是：&quot;;
+        d = new Date();
+        s += d.getMonth()+ 1+ &quot;/&quot;;
+        s += d.getDate()+&quot;/&quot;;
+        s += d.getFullYear();
+        return s;    
+    }
+    console.log(DateDemo());</code></p>
+<h4 id="20-foo-foo-bar-这行代码什么意思？为什么这样写？"><a href="#20-foo-foo-bar-这行代码什么意思？为什么这样写？" class="headerlink" title="20.foo = foo||bar ,这行代码什么意思？为什么这样写？"></a>20.foo = foo||bar ,这行代码什么意思？为什么这样写？</h4><ul>
+<li>短路表达式，等同于if(!foo){ foo = bar } 如果foo存在，值不变，否则bar的值赋值给foo。</li>
+<li>作为‘&amp;&amp;’和‘||’操作符的操作数表达式，这些表达式在进行求值的时候，只要最终的结果已经确定是真或假，求值过程便可以终止，这叫短路求值。</li>
+</ul>
+<h4 id="21-生成一个10到100的-10个随机数组成的数组，并排序"><a href="#21-生成一个10到100的-10个随机数组成的数组，并排序" class="headerlink" title="21.生成一个10到100的 10个随机数组成的数组，并排序"></a>21.生成一个10到100的 10个随机数组成的数组，并排序</h4><p><code>js
+        var arr = [];
+    for (var i = 0; i &lt; 10; i++) {
+        var result = Math.floor(Math.random()*(100-10) + 10);
+        arr.push(result);
+    }
+    arr.sort();  //默认升序
+    console.log(arr);</code> </p>
+<h4 id="22-将url中get提交的参数获取到key-value-返回到一个json结构中-如-a-’1-b-’2’-c-’3’-d-”xxx”-e-undefined"><a href="#22-将url中get提交的参数获取到key-value-返回到一个json结构中-如-a-’1-b-’2’-c-’3’-d-”xxx”-e-undefined" class="headerlink" title="22.将url中get提交的参数获取到key,value ,返回到一个json结构中,如{a:’1,b:’2’,c:’3’,d:”xxx”,e:undefined}"></a>22.将url中get提交的参数获取到key,value ,返回到一个json结构中,如{a:’1,b:’2’,c:’3’,d:”xxx”,e:undefined}</h4><p>``js<br>    function serilizeUrl(url){<br>        var result = {};<br>        url  = url.split(“?”)[1]   //获取url中?后面的内容 –&gt;字符串<br>        var map = url.split(‘&amp;’);<br>        for (var i = 0; i &lt; map.length; i++) {<br>            var key = map[i].split(“=”)[0];<br>            var value = map[i].split(“=”)[1];<br>            result[key] = value;      //获取的键值对添加给{}；<br>        }<br>        return result;<br>    }<br>    console.log(serilizeUrl(‘<a href="http://item.taobao.com/item.html?a=1&amp;b=2&amp;c=3&amp;d=xxx&amp;e" target="_blank" rel="external">http://item.taobao.com/item.html?a=1&amp;b=2&amp;c=3&amp;d=xxx&amp;e</a>‘));</p>
+<p>``</p>
+<h4 id="23-完成下拉菜单功能，要求能够动态根据下拉列表的选项变化，更新图片的显示。"><a href="#23-完成下拉菜单功能，要求能够动态根据下拉列表的选项变化，更新图片的显示。" class="headerlink" title="23.完成下拉菜单功能，要求能够动态根据下拉列表的选项变化，更新图片的显示。"></a>23.完成下拉菜单功能，要求能够动态根据下拉列表的选项变化，更新图片的显示。</h4><p><code>js
+ //onchange 监听下拉列表的改变
+ document.getElementById(&#39;sel&#39;).onchange = function(){
+     //获取当前的value进行字符串拼接后赋值给src,改变图片。
+     document.getElementById(&#39;pic&#39;).src = &#39;img/&#39;+this.value+&#39;jpg&#39;;
+ };</code></p>
+<h4 id="30-截取字符串-abcdefg-的-efg"><a href="#30-截取字符串-abcdefg-的-efg" class="headerlink" title="30.截取字符串 abcdefg 的 efg."></a>30.截取字符串 abcdefg 的 efg.</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;!-- <span class="keyword">var</span> str = <span class="string">'abcdefg'</span> --&gt;</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">面试题</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">js基础</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/js基础/" class="article-tag-list-link color5">js基础</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/18/JS基础面试题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-Nodejs-和前端概括性问题等-面试题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -175,7 +467,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Node-js-和-前端概括性问题总结"><a href="#Node-js-和-前端概括性问题总结" class="headerlink" title="Node.js 和 前端概括性问题总结"></a>Node.js 和 前端概括性问题总结</h3>
+        <h3 id="Node-js-和-前端概括性问题总结"><a href="#Node-js-和-前端概括性问题总结" class="headerlink" title="Node.js 和 前端概括性问题总结"></a>Node.js 和 前端概括性问题总结</h3><h4 id="1-对Node的优点-和缺点-提出自己的看法"><a href="#1-对Node的优点-和缺点-提出自己的看法" class="headerlink" title="1.对Node的优点 和缺点 提出自己的看法"></a>1.对Node的优点 和缺点 提出自己的看法</h4><ul>
+<li>优点：1).因为Node是基于事件驱动和无阻塞的，所有非常适合处理并发请求。因此构建在Node上的代理服务器</li>
+</ul>
+
       
 
       
@@ -1182,7 +1477,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Ajax</a>
+                <a href="javascript:void(0)" class="js-tag color5">css3</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1194,7 +1489,27 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Ajax</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">html</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">js基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">browser-sync</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">代理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1203,14 +1518,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">browserSync</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">css3</a>
               </li>
             
             <div class="clearfix"></div>
